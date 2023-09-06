@@ -1,0 +1,20 @@
+close all;
+clear; 
+A = imread("Fig0911(a)(noisy_fingerprint).tif");
+B = ones(3);
+B1 = [1 1 1 1 1 ];
+B2 = [1;1;1];
+S1 = imerode(A,B);
+S2 = imopen(A,B);
+S3 = imdilate(S2,B);
+S4 = imclose(S2,B);
+S5 = imdilate(S4,B1);
+S6 = imerode(S4,B2);
+figure, imshow(A);
+figure, imshow(S1);
+figure, imshow(S2);
+figure, imshow(S3);
+figure, imshow(S4);
+figure, imshow(S5);
+
+figure, imshow(S6);

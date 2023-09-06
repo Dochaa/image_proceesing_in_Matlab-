@@ -1,0 +1,33 @@
+close all;
+clear;
+
+%original
+I=imread('Fig0459(a)(orig_chest_xray).tif');
+figure, imshow(I);
+title('original');
+
+%Gaussian
+D0 = 60;
+PQ = paddedsize(size(I));
+[U, V] = dftuv(PQ(1),PQ(2));
+D= sqrt(U.^2+V.^2);
+F=fft2(I,PQ(1),PQ(2));
+Hp = double(1-(exp(-D.^2/(2*(D0.^2)))));
+Hp = dftfilt(I, Hp);
+figure, imshow(Hp,[ ]),title('Gaussian High-pass filter D = 60 ');
+
+%High-frequency
+K1=1;
+K2=2;
+[U,V] = freqspace(size(I), 'meshgrid' );
+D = sqrt(U.^2 + V.^2);
+G_Hpf = double(1 - (exp((-D.^2)./(2*(D0^2)))));
+Hfe=K1+K2*G_Hpf;
+dft=fft2(I);
+g = ifftshift(Hfe) .* dft;
+Img_Hfe=uint8(ifft2(g));
+figure, imshow(Img_Hfe),title('High-frequency-emphasis filter k1 =1 ,k2 = 2 ');
+
+%Histogram equalization
+Img_HTG = histeq(Img_Hfe);
+figure, imshow(Img_HTG),title(' Histogram equalization ');

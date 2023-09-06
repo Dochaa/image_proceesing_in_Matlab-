@@ -1,0 +1,15 @@
+i = imread("Fig0424(a)(rectangle).tif");
+r = imread("Fig0425(a)(translated_rectangle).tif");
+crop= imrotate(i,-45.16,'crop');
+F=fft2(i);
+F2 = fft2(r);
+F3 = fft2(crop);
+spec = abs(F);
+F5 = fftshift(F);
+s2=log(1+abs(F5));
+phase1 = angle(F);
+figure,imshow(phase1,[]);
+phase2 = angle(F2);
+figure,imshow(phase2,[]);
+phase3 = angle(F3);
+figure,imshow(phase3);

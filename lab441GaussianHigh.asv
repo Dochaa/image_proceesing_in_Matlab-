@@ -1,0 +1,12 @@
+I = imread('Fig0441(a)(characters_test_pattern).tif');
+%figure, imshow(I)
+D0 = 10; % Cutoff
+
+PQ = paddedsize(size(I));
+[U, V] = dftuv(PQ(1), PQ(2));
+F = fft2(I, PQ(1), PQ(2));
+D = sqrt(U.^2 + V.^2);
+
+GL =  exp .^(-D.^2 * 2 * D0 .^2);
+gGL = dftfilt(I, GL);
+figure, imshow(gGL, []);

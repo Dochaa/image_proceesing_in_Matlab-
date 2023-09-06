@@ -1,0 +1,16 @@
+close all;
+clear;
+i=imread('Fig0905(a)(wirebond-mask).tif');
+figure; imshow(i);
+sel=ones(11);
+i1=imerode(i,sel);
+figure; imshow(i1);
+sel2=ones(15);
+i2=imerode(i,sel2);
+figure; imshow(i2);
+sel3=ones(45);
+i3=imerode(i,sel3);
+figure; imshow(i3);
+sel=ones(5);
+i4=imerode(i,sel);
+figure; imshow(i4);
